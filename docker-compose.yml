@@ -1,0 +1,47 @@
+version: "3.7"
+services:
+  finance_core:
+    image: jsterj/finance-app-demo:latest
+    networks:
+    - finance_net_web
+    - finance_net_db
+    restart: always
+    volumes:
+    - "./:/usr/share/nginx/html"
+    working_dir: /usr/share/nginx/html
+  nginx:
+    image: jsterj/nginx-1.15.5:feb-03-2020
+    ports:
+    - "80:80"
+    networks:
+    - finance_net_web
+    restart: always
+    volumes:
+    - "./:/usr/share/nginx/html"
+    - "./nginx/conf.d:/etc/nginx/conf.d"
+    - "./nginx/logs:/var/log/nginx"
+    working_dir: /usr/share/nginx/html
+  finance_db:
+    image: mysql:5.7.23
+    expose:
+    - "3306"
+    networks:
+    - finance_net_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 3dW3#$xA#FMtc0zM
+      MYSQL_DATABASE: finance_db_main
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+     - PMA_HOST=finance_db
+    ports:
+    - "8080:80"
+    networks:
+    - finance_net_db
+    restart: always
+    volumes:
+    - /sessions
+networks:
+  finance_net_web:
+  finance_net_db:
