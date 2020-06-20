@@ -14,7 +14,7 @@ class AddUserIdToTransactions extends Migration
     public function up()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('user_id')->index()->after('id');
         });
     }
 
