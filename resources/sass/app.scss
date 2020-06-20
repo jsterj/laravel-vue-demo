@@ -1,5 +1,18 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+@font-face {
+  font-family: "SF Pro Rounded";
+  src: url("/fonts/SF-Pro-Rounded-Black.otf"),
+        url("/fonts/SF-Pro-Rounded-Bold.otf"),
+        url("/fonts/SF-Pro-Rounded-Heavy.otf"),
+        url("/fonts/SF-Pro-Rounded-Light.otf"),
+        url("/fonts/SF-Pro-Rounded-Medium.otf"),
+        url("/fonts/SF-Pro-Rounded-Regular.otf"),
+        url("/fonts/SF-Pro-Rounded-Semibold.otf"),
+        url("/fonts/SF-Pro-Rounded-Thin.otf"),
+        url("/fonts/SF-Pro-Rounded-Ultralight.otf");
+}
 
 // Variables
 @import 'variables';
