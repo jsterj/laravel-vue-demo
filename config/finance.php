@@ -8,6 +8,8 @@
 
   return [
 
+    'navbarLogo' => '/img/logo.svg',
+
     /*
     |--------------------------------------------------------------------------
     | Config values related to the user

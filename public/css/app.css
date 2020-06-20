@@ -122,7 +122,7 @@ body {
   margin: 0;
   font-family: "SF Pro Rounded", sans-serif;
   font-size: 0.9rem;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.6;
   color: #212529;
   text-align: left;
@@ -2210,7 +2210,7 @@ pre code {
   height: calc(1.6em + 0.75rem + 2px);
   padding: 0.375rem 0.75rem;
   font-size: 0.9rem;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.6;
   color: #495057;
   background-color: #fff;
@@ -4186,7 +4186,7 @@ input[type=button].btn-block {
   height: calc(1.6em + 0.75rem + 2px);
   padding: 0.375rem 1.75rem 0.375rem 0.75rem;
   font-size: 0.9rem;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.6;
   color: #495057;
   vertical-align: middle;
@@ -4289,7 +4289,7 @@ input[type=button].btn-block {
   z-index: 1;
   height: calc(1.6em + 0.75rem + 2px);
   padding: 0.375rem 0.75rem;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.6;
   color: #495057;
   background-color: #fff;
