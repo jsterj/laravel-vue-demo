@@ -1,5 +1,7 @@
 <?php
 
+use App\Transaction;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
@@ -23,5 +25,18 @@ class DemoSeeder extends Seeder
             'created_at' => $ts,
             'updated_at' => $ts,
         ]);
+
+        //add some random transactions
+        $transactions = factory(App\Transaction::class, 100)->make();
+
+        //make the first transaction an initial deposit
+        $transactions[0]->amount = 5000;
+        $transactions[0]->label = 'Initial Deposit';
+        $transactions[0]->date = Carbon::now()->subDays(31);  //ensure this is first (factory has date range spanning back 30 days)
+
+        //save the transactions
+        foreach($transactions as $transaction) {
+          $transaction->save();
+        }
     }
 }
