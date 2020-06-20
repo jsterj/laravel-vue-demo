@@ -19,6 +19,7 @@
       'profileImagePath' => '/img/profile/',
       'profileImageType' => 'png',
       'profileImageDimension' => '30px',
+      'profileImageDefault' => 'default.png' //default image to use if the user has not provided an image
     ],
 
     /*

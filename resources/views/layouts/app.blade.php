@@ -53,6 +53,8 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                   @if (Auth::user()->profile_image)
                                     <img class="mr-3" src="{{ config('finance.user.profileImagePath') . Auth::user()->profile_image . '.' . config('finance.user.profileImageType') }}" height="{{ config('finance.user.profileImageDimension') }}"/>
+                                  @else
+                                    <img class="mr-3" src="{{ config('finance.user.profileImagePath') . config('finance.user.profileImageDefault') }}" height="{{ config('finance.user.profileImageDimension') }}"/>
                                   @endif
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
