@@ -31,7 +31,7 @@ $factory->define(App\User::class, function (Faker $faker) {
 $factory->define(App\Transaction::class, function (Faker $faker) {
     return [
         'user_id' => 1,
-        'label' => $faker->word,
+        'label' => $faker->words(rand(1, 2), true),
         'amount' => $faker->randomFloat(2, -500, 500),
         'date' => $faker->dateTimeBetween('-30 days', 'now', 'UTC'),
     ];
