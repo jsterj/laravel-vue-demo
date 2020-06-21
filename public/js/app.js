@@ -38381,11 +38381,14 @@ var staticRenderFns = [
             _c(
               "button",
               {
-                staticClass: "btn btn-primary border-0 navbar-button ml-3",
+                staticClass: "btn btn-primary border-0 navbar-button ml-3 pl-0",
                 attrs: { type: "button", width: "1.5em", height: "1.5em" }
               },
               [
-                _c("img", { attrs: { src: "img/add.svg" } }),
+                _c("img", {
+                  staticClass: "mr-2",
+                  attrs: { src: "img/add.png", width: "10%" }
+                }),
                 _vm._v("\n          ADD ENTRY\n        ")
               ]
             ),
@@ -38393,11 +38396,14 @@ var staticRenderFns = [
             _c(
               "button",
               {
-                staticClass: "btn btn-primary border-0 navbar-button ml-3",
+                staticClass: "btn btn-primary border-0 navbar-button ml-3 pl-0",
                 attrs: { type: "button", width: "1.5em", height: "1.5em" }
               },
               [
-                _c("img", { attrs: { src: "img/import.svg" } }),
+                _c("img", {
+                  staticClass: "mr-2",
+                  attrs: { src: "img/import.png", width: "10%" }
+                }),
                 _vm._v("\n          IMPORT CSV\n        ")
               ]
             )
