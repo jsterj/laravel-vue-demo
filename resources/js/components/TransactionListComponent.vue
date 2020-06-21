@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col"></div>
-        <div class="col-8">
+        <div class="col-10">
           <ul id="transaction-list" class="p-0">
             <li v-for="currentTransaction in currentTransactions">
               <div class="card mb-3">

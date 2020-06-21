@@ -6502,7 +6502,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.transaction-navbar {\n  background-color: #192b4e;\n  height: 150px;\n}\n.navbar-text {\n  color: white;\n}\n.navbar-button {\n  background-color: #0054fe;\n}\n", ""]);
+exports.push([module.i, "\n.transaction-navbar {\n  background-color: #192b4e;\n  height: 150px;\n}\n.transaction-navbar-inner-div {\n  height: 100%;\n}\n.navbar-text {\n  color: white;\n}\n.navbar-button {\n  background-color: #0054fe;\n}\n", ""]);
 
 // exports
 
@@ -38283,7 +38283,7 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col" }),
         _vm._v(" "),
-        _c("div", { staticClass: "col-8" }, [
+        _c("div", { staticClass: "col-10" }, [
           _c(
             "ul",
             { staticClass: "p-0", attrs: { id: "transaction-list" } },
@@ -38371,12 +38371,14 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "transaction-navbar" }, [
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "container transaction-navbar-inner-div" }, [
+        _c("div", { staticClass: "row transaction-navbar-inner-div" }, [
           _c("div", { staticClass: "col" }),
           _vm._v(" "),
-          _c("div", { staticClass: "col-8 align-self-center" }, [
-            _c("h3", { staticClass: "navbar-text" }, [_vm._v("Your Balance")]),
+          _c("div", { staticClass: "col-10 align-self-center" }, [
+            _c("h3", { staticClass: "navbar-text align-self-center" }, [
+              _vm._v("Your Balance")
+            ]),
             _vm._v(" "),
             _c(
               "button",

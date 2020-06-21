@@ -1,10 +1,10 @@
 <template>
   <div class="transaction-navbar">
-    <div class="container">
-      <div class="row">
+    <div class="container transaction-navbar-inner-div">
+      <div class="row transaction-navbar-inner-div">
         <div class="col"></div>
-        <div class="col-8 align-self-center">
-          <h3 class="navbar-text">Your Balance</h3>
+        <div class="col-10 align-self-center">
+          <h3 class="navbar-text align-self-center">Your Balance</h3>
           <button type="button" class="btn btn-primary border-0 navbar-button ml-3 pl-0" width="1.5em" height="1.5em">
             <img src="img/add.png" class="mr-2" width="10%" />
             ADD ENTRY
@@ -35,6 +35,9 @@
   .transaction-navbar {
     background-color: #192b4e;
     height: 150px;
+  }
+  .transaction-navbar-inner-div {
+    height: 100%;
   }
   .navbar-text {
     color: white;
