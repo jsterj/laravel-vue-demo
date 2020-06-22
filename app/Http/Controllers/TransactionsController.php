@@ -143,6 +143,7 @@ class TransactionsController extends Controller
         //validate the input
         $validator = Validator::make($request->all(), [
           'label' => 'required|max:35',
+          'date' => 'required|date',
           'amount' => 'required|numeric|max:5000|min:-5000',
         ]);
 
@@ -158,6 +159,7 @@ class TransactionsController extends Controller
         //update the record
         $validatedData = $validator->valid();
         $transaction->label = $validatedData['label'];
+        $transaction->date = $validatedData['date'];
         $transaction->amount = $validatedData['amount'];
         $transaction->save();
 
