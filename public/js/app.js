@@ -2084,6 +2084,9 @@ __webpack_require__.r(__webpack_exports__);
     hideForm: function hideForm(ref) {
       this.$refs[ref][0].style.display = 'none';
     },
+    formatDateForForm: function formatDateForForm(dateString) {
+      return new Date(dateString).toISOString().substring(0, 10);
+    },
     updateTransaction: function updateTransaction(id) {
       var _this2 = this;
 
@@ -38733,7 +38736,76 @@ var render = function() {
                                   domProps: { value: _vm.csrf }
                                 }),
                                 _vm._v(" "),
-                                _vm._m(0, true),
+                                _c("div", { staticClass: "form-row" }, [
+                                  _c("div", { staticClass: "col" }, [
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c(
+                                        "label",
+                                        { attrs: { for: "labelInput" } },
+                                        [_vm._v("LABEL")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "text",
+                                          id: "labelInput",
+                                          maxlength: "35"
+                                        },
+                                        domProps: {
+                                          value: currentTransaction.label
+                                        }
+                                      })
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col" }, [
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c(
+                                        "label",
+                                        { attrs: { for: "dateInput" } },
+                                        [_vm._v("DATE")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "date",
+                                          id: "dateInput"
+                                        },
+                                        domProps: {
+                                          value: _vm.formatDateForForm(
+                                            currentTransaction.date
+                                          )
+                                        }
+                                      })
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col" }, [
+                                    _c("div", { staticClass: "form-group" }, [
+                                      _c(
+                                        "label",
+                                        { attrs: { for: "amountInput" } },
+                                        [_vm._v("AMOUNT")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "number",
+                                          id: "amountInput",
+                                          step: "0.01",
+                                          min: "-5000",
+                                          max: "5000"
+                                        },
+                                        domProps: {
+                                          value: currentTransaction.amount
+                                        }
+                                      })
+                                    ])
+                                  ])
+                                ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "mt-5" }, [
                                   _c("hr"),
@@ -38796,53 +38868,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row" }, [
-      _c("div", { staticClass: "col" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "labelInput" } }, [_vm._v("LABEL")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "text", id: "labelInput", maxlength: "35" }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "dateInput" } }, [_vm._v("DATE")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "date", id: "dateInput" }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "amountInput" } }, [_vm._v("AMOUNT")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              type: "number",
-              id: "amountInput",
-              step: "0.01",
-              min: "-5000",
-              max: "5000"
-            }
-          })
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

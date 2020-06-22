@@ -68,19 +68,19 @@
                             <div class="col">
                               <div class="form-group">
                                 <label for="labelInput">LABEL</label>
-                                <input type="text" class="form-control" id="labelInput" maxlength="35">
+                                <input type="text" class="form-control" id="labelInput" maxlength="35" :value="currentTransaction.label">
                               </div>
                             </div>
                             <div class="col">
                               <div class="form-group">
                                 <label for="dateInput">DATE</label>
-                                <input type="date" class="form-control" id="dateInput">
+                                <input type="date" class="form-control" id="dateInput" :value="formatDateForForm(currentTransaction.date)">
                               </div>
                             </div>
                             <div class="col">
                               <div class="form-group">
                                 <label for="amountInput">AMOUNT</label>
-                                <input type="number" class="form-control" id="amountInput" step="0.01" min="-5000" max="5000">
+                                <input type="number" class="form-control" id="amountInput" step="0.01" min="-5000" max="5000" :value="currentTransaction.amount">
                               </div>
                             </div>
                           </div>
@@ -173,6 +173,9 @@
         //when the cancel button in an entry's form is clicked then the form is hidden
         hideForm: function(ref) {
           this.$refs[ref][0].style.display = 'none';
+        },
+        formatDateForForm: function(dateString) {
+          return new Date(dateString).toISOString().substring(0, 10)
         },
         updateTransaction: function (id) {
           var formTagRef = 'form-tag-' + String(id);
