@@ -77,7 +77,49 @@ class TransactionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        abort(404);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function asyncStore(Request $request)
+    {
+        $data = $request->all();
+        $label = $data['label'];
+        $label = htmlentities(strip_tags(stripslashes(trim($label))));
+
+        //validate the input
+        $validator = Validator::make($request->all(), [
+          'label' => 'required|max:35',
+          'date' => 'required|date',
+          'amount' => 'required|numeric|max:5000|min:-5000',
+        ]);
+
+        if ($validator->fails()) {
+          $errors = $validator->errors();
+          return response()->json([
+              'status' => 'failed',
+              'error' => $errors->all(),
+          ]);
+        }
+
+        //update the record
+        $transaction = new Transaction;
+        $validatedData = $validator->valid();
+        $transaction->user_id = Auth::user()->id;
+        $transaction->label = $validatedData['label'];
+        $transaction->date = $validatedData['date'];
+        $transaction->amount = $validatedData['amount'];
+        $transaction->save();
+
+        return response()->json([
+            'status' => 'created',
+            'transaction' => $transaction->id,
+        ]);
     }
 
     /**
@@ -111,7 +153,7 @@ class TransactionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        abort(404);
     }
 
     /**
