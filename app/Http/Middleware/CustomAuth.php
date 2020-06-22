@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use Closure;
 
 class CustomAuth
@@ -16,12 +17,14 @@ class CustomAuth
     public function handle($request, Closure $next)
     {
         //check that the user is logged in, if not return custom JSON response
+        if(Auth::user()) {
+          return $next($request);
+        }
+
         return response()->json([
             'status' => 'unauthenticated',
             'transactions' => false,
             'balance' => false,
         ]);
-
-        return $next($request);
     }
 }
