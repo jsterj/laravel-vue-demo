@@ -37,7 +37,7 @@
                       <div class="col-3 align-self-center">
                         <div class="edit-links float-right">
                           <a href="#" class="mr-3">EDIT</a>
-                          <a href="#">DELETE</a>
+                          <a href="#" @click="deleteTransaction(currentTransaction.id)">DELETE</a>
                         </div>
                       </div>
                       <div class="col-3 align-self-center">
@@ -94,6 +94,25 @@
         },
         mouseleave: function (event) {
           event.currentTarget.querySelector('.edit-links').style.display = 'none';
+        },
+        deleteTransaction: function (id) {
+          axios.get('/transactions/' + String(id) + '/asyncdestroy', {
+              headers: {
+                  'Accept': 'application/json'
+              }
+          })
+            .then(response => {
+                 var data = response.data;
+                 if(data.status == 'deleted') {
+                    console.log('deleted transaction - id # ' + String(id));
+                    this.emitUpdate();
+                 } else {
+                    console.log('error deleting transaction - id # ' + String(id));
+                 }
+            })
+            .catch(error => {
+              console.log(error);
+            });
         },
       },
       computed: {

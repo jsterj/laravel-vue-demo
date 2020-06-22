@@ -2002,6 +2002,27 @@ __webpack_require__.r(__webpack_exports__);
     },
     mouseleave: function mouseleave(event) {
       event.currentTarget.querySelector('.edit-links').style.display = 'none';
+    },
+    deleteTransaction: function deleteTransaction(id) {
+      var _this = this;
+
+      axios.get('/transactions/' + String(id) + '/asyncdestroy', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(function (response) {
+        var data = response.data;
+
+        if (data.status == 'deleted') {
+          console.log('deleted transaction - id # ' + String(id));
+
+          _this.emitUpdate();
+        } else {
+          console.log('error deleting transaction - id # ' + String(id));
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   },
   computed: {
@@ -38505,7 +38526,41 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
-                          _vm._m(0, true),
+                          _c(
+                            "div",
+                            { staticClass: "col-3 align-self-center" },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "edit-links float-right" },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "mr-3",
+                                      attrs: { href: "#" }
+                                    },
+                                    [_vm._v("EDIT")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deleteTransaction(
+                                            currentTransaction.id
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("DELETE")]
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -38552,22 +38607,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-3 align-self-center" }, [
-      _c("div", { staticClass: "edit-links float-right" }, [
-        _c("a", { staticClass: "mr-3", attrs: { href: "#" } }, [
-          _vm._v("EDIT")
-        ]),
-        _vm._v(" "),
-        _c("a", { attrs: { href: "#" } }, [_vm._v("DELETE")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
