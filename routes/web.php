@@ -20,5 +20,5 @@ Route::get('/', function () { return redirect('transactions'); });
 Route::get('/home', function () { return redirect('transactions'); });
 
 /* transactions routes */
-Route::get('/transactions/getupdate', 'TransactionsController@getUpdate')->name('transactions.getupdate');  //called from Vue component(s) to obtain data, Auth check handled in function(not middleware)
+Route::get('/transactions/getupdate', 'TransactionsController@getUpdate')->middleware('auth.custom')->name('transactions.getupdate');  //called from Vue component(s) to obtain data, Auth check handled in function(not middleware)
 Route::resource('transactions', 'TransactionsController')->middleware('auth');

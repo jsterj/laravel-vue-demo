@@ -33,12 +33,6 @@ class TransactionsController extends Controller
     {
         $user = Auth::user();
 
-        if(!$user) {
-          return response()->json([
-              'status' => 'unauthenticated'
-          ]);
-        }
-
         //obtain the user's most recent transactions
         $transactions = $this->getCurrentTransactions();
 
