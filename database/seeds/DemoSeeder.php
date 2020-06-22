@@ -27,7 +27,7 @@ class DemoSeeder extends Seeder
         ]);
 
         //add some random transactions
-        $transactions = factory(App\Transaction::class, 100)->make();
+        $transactions = factory(App\Transaction::class, 300)->make();
 
         //make the first transaction an initial deposit
         $transactions[0]->amount = 5000;
