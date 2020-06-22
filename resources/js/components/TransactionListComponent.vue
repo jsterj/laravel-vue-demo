@@ -105,6 +105,7 @@
             </li>
           </ul>
 
+          <!-- pagination links -->
           <div class="float-right mt-2" v-html="currentPlinks"> </div>
 
         </div>
