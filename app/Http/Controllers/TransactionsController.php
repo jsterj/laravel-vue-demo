@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TransactionsController extends Controller
 {
@@ -111,6 +112,67 @@ class TransactionsController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function asyncUpdate(Request $request, $id)
+    {
+      //get the transaction record
+      $transaction = Transaction::find($id);
+
+      //check that user owns this resource
+      if($transaction && $transaction->user_id != Auth::user()->id) {
+        return response()->json([
+            'status' => 'unauthorized',
+            'transaction' => $id,
+        ]);
+      }
+
+      //if the record is found
+      if($transaction) {
+        $data = $request->all();
+        $label = $data['label'];
+        $label = htmlentities(strip_tags(stripslashes(trim($label))));
+
+        //validate the input
+        $validator = Validator::make($request->all(), [
+          'label' => 'required|max:35',
+          'amount' => 'required|numeric|max:5000|min:-5000',
+        ]);
+
+        if ($validator->fails()) {
+          $errors = $validator->errors();
+          return response()->json([
+              'status' => 'failed',
+              'error' => $errors->all(),
+              'transaction' => $id,
+          ]);
+        }
+
+        //update the record
+        $validatedData = $validator->valid();
+        $transaction->label = $validatedData['label'];
+        $transaction->amount = $validatedData['amount'];
+        $transaction->save();
+
+        return response()->json([
+            'status' => 'updated',
+            'transaction' => $id,
+        ]);
+      }
+
+      //record not found
+      return response()->json([
+          'status' => 'failed',
+          'error' => 'Transaction not found',
+          'transaction' => $id,
+      ]);
     }
 
     /**

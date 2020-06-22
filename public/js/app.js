@@ -2104,6 +2104,7 @@ __webpack_require__.r(__webpack_exports__);
           _this2.emitUpdate();
         } else {
           console.log('error updating transaction - id # ' + String(id));
+          console.log(data.error);
         }
       })["catch"](function (error) {
         console.log(error);

@@ -192,6 +192,7 @@
                     this.emitUpdate();
                  } else {
                     console.log('error updating transaction - id # ' + String(id));
+                    console.log(data.error);
                  }
             })
             .catch(error => {

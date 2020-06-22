@@ -22,4 +22,5 @@ Route::get('/home', function () { return redirect('transactions'); });
 /* transactions routes */
 Route::get('/transactions/getupdate', 'TransactionsController@getUpdate')->middleware('auth.custom')->name('transactions.getupdate');
 Route::get('/transactions/{id}/asyncdestroy', 'TransactionsController@asyncDestroy')->middleware('auth.custom')->name('transactions.asyncdestroy');
+Route::post('/transactions/{id}/asyncupdate', 'TransactionsController@asyncUpdate')->middleware('auth.custom')->name('transactions.asyncupdate');
 Route::resource('transactions', 'TransactionsController')->middleware('auth');
