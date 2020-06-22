@@ -177,7 +177,11 @@
         formatDateForForm: function(dateString) {
           return new Date(dateString).toISOString().substring(0, 10)
         },
+        //update a single transaction
         updateTransaction: function (id) {
+          var formRef = 'form-' + String(id);
+          this.hideForm(formRef);
+
           var formTagRef = 'form-tag-' + String(id);
 
           axios.post('/transactions/' + String(id) + '/asyncupdate', {

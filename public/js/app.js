@@ -2087,9 +2087,12 @@ __webpack_require__.r(__webpack_exports__);
     formatDateForForm: function formatDateForForm(dateString) {
       return new Date(dateString).toISOString().substring(0, 10);
     },
+    //update a single transaction
     updateTransaction: function updateTransaction(id) {
       var _this2 = this;
 
+      var formRef = 'form-' + String(id);
+      this.hideForm(formRef);
       var formTagRef = 'form-tag-' + String(id);
       axios.post('/transactions/' + String(id) + '/asyncupdate', {
         label: this.$refs[formTagRef][0].elements.labelInput.value,
