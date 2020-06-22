@@ -5,7 +5,7 @@
         <div class="col"></div>
         <div class="col-10">
           <ul id="transaction-list" class="p-0">
-            <li v-for="currentTransaction in currentTransactions">
+            <li v-for="currentTransaction in formattedTransactions">
               <div class="card mb-3">
                 <div class="card-body">
                   <div class="container">
@@ -16,10 +16,10 @@
                       </div>
                       <div class="col-3 align-self-center">
                         <h4 v-if="Number(currentTransaction.amount) > 0" class="float-right deposit">
-                          {{ formatCurrency(currentTransaction.amount, true) }}
+                          {{ currentTransaction.amountString }}
                         </h4>
                         <h4 v-else class="float-right">
-                          {{ formatCurrency(currentTransaction.amount, true) }}
+                          {{ currentTransaction.amountString }}
                         </h4>
                       </div>
                     </div>
@@ -43,7 +43,68 @@
       },
       mounted(){
         //
-      }
+      },
+      methods: {
+        emitUpdate: function () {
+          this.$emit('update');
+        },
+        getMdyString: function (date) {
+          return String(date.getMonth()).padStart(2, '0') + String(date.getDate()).padStart(2, '0') + String(date.getYear());
+        },
+        getDayString: function (date) {
+          var days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+          var day = date.getDay();
+          return days[day];
+        },
+        getMonthString: function (date) {
+          var months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+          var month = date.getMonth();
+          return months[month];
+        },
+      },
+      computed: {
+        //build a new array of transactions with daily header strings and formatted amount strings with "$" and "+" or "-"
+        formattedTransactions: function () {
+          var newArray = [];
+          var currMdy = false;  //current header string's MMDDYYYY
+          var currHeaderIndex;  //array index that holds the current header info
+          var date, mdy;
+          var today = new Date();
+          var yesterday = new Date();
+          yesterday.setDate(today.getDate() - 1);
+
+          for(var i=0; i<this.currentTransactions.length; i++) {
+            newArray.push(this.currentTransactions[i]);  //copy transaction record
+
+            //check date of current transaction against the currentMdy
+            date = new Date(this.currentTransactions[i].date);
+            mdy = this.getMdyString(date);
+            if(mdy != currMdy) {  //create next daily header
+              currMdy = mdy;
+              currHeaderIndex = i;
+
+              //check if the date is today or yesterday
+              if(this.getMdyString(today) == mdy) {
+                newArray[i].headerDate = "TODAY";
+              } else if(this.getMdyString(yesterday) == mdy) {
+                newArray[i].headerDate = "YESTERDAY";
+              } else {
+                newArray[i].headerDate = this.getDayString(date) + ', ' + String(date.getDate()).padStart(2, '0') + ' ' + this.getMonthString(date);
+              }
+
+              newArray[i].headerTotal = Number(newArray[i].amount);  //add amount to the header total
+            } else { //add to the current header's total
+              newArray[currHeaderIndex].headerTotal += Number(newArray[i].amount);
+              newArray[i].headerDate = false;
+              newArray[i].headerTotal = false;
+            }
+
+            //add formatted amount string for display
+            newArray[i].amountString = this.formatCurrency(newArray[i].amount, true);
+          }
+          return newArray;
+        }
+      },
     }
 </script>
 

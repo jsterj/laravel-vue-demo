@@ -1951,6 +1951,72 @@ __webpack_require__.r(__webpack_exports__);
     currentTransactions: [Object, Array]
   },
   mounted: function mounted() {//
+  },
+  methods: {
+    emitUpdate: function emitUpdate() {
+      this.$emit('update');
+    },
+    getMdyString: function getMdyString(date) {
+      return String(date.getMonth()).padStart(2, '0') + String(date.getDate()).padStart(2, '0') + String(date.getYear());
+    },
+    getDayString: function getDayString(date) {
+      var days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+      var day = date.getDay();
+      return days[day];
+    },
+    getMonthString: function getMonthString(date) {
+      var months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+      var month = date.getMonth();
+      return months[month];
+    }
+  },
+  computed: {
+    //build a new array of transactions with daily header strings and formatted amount strings with "$" and "+" or "-"
+    formattedTransactions: function formattedTransactions() {
+      var newArray = [];
+      var currMdy = false; //current header string's MMDDYYYY
+
+      var currHeaderIndex; //array index that holds the current header info
+
+      var date, mdy;
+      var today = new Date();
+      var yesterday = new Date();
+      yesterday.setDate(today.getDate() - 1);
+
+      for (var i = 0; i < this.currentTransactions.length; i++) {
+        newArray.push(this.currentTransactions[i]); //copy transaction record
+        //check date of current transaction against the currentMdy
+
+        date = new Date(this.currentTransactions[i].date);
+        mdy = this.getMdyString(date);
+
+        if (mdy != currMdy) {
+          //create next daily header
+          currMdy = mdy;
+          currHeaderIndex = i; //check if the date is today or yesterday
+
+          if (this.getMdyString(today) == mdy) {
+            newArray[i].headerDate = "TODAY";
+          } else if (this.getMdyString(yesterday) == mdy) {
+            newArray[i].headerDate = "YESTERDAY";
+          } else {
+            newArray[i].headerDate = this.getDayString(date) + ', ' + String(date.getDate()).padStart(2, '0') + ' ' + this.getMonthString(date);
+          }
+
+          newArray[i].headerTotal = Number(newArray[i].amount); //add amount to the header total
+        } else {
+          //add to the current header's total
+          newArray[currHeaderIndex].headerTotal += Number(newArray[i].amount);
+          newArray[i].headerDate = false;
+          newArray[i].headerTotal = false;
+        } //add formatted amount string for display
+
+
+        newArray[i].amountString = this.formatCurrency(newArray[i].amount, true);
+      }
+
+      return newArray;
+    }
   }
 });
 
@@ -2009,6 +2075,11 @@ __webpack_require__.r(__webpack_exports__);
     currentBalance: Number
   },
   mounted: function mounted() {//
+  },
+  methods: {
+    emitUpdate: function emitUpdate() {
+      this.$emit('update');
+    }
   }
 });
 
@@ -2023,6 +2094,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2030,6 +2103,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     balance: Number,
@@ -2045,6 +2119,16 @@ __webpack_require__.r(__webpack_exports__);
     //initialize data values from props sent by the view
     this.currentBalance = this.balance;
     this.currentTransactions = this.transactions;
+  },
+  methods: {
+    //call server for updated data
+    update: function update() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/transactions/getupdate').then(function (response) {
+        console.log(response.data);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
   }
 });
 
@@ -38296,7 +38380,7 @@ var render = function() {
           _c(
             "ul",
             { staticClass: "p-0", attrs: { id: "transaction-list" } },
-            _vm._l(_vm.currentTransactions, function(currentTransaction) {
+            _vm._l(_vm.formattedTransactions, function(currentTransaction) {
               return _c("li", [
                 _c("div", { staticClass: "card mb-3" }, [
                   _c("div", { staticClass: "card-body" }, [
@@ -38315,24 +38399,14 @@ var render = function() {
                             ? _c("h4", { staticClass: "float-right deposit" }, [
                                 _vm._v(
                                   "\n                        " +
-                                    _vm._s(
-                                      _vm.formatCurrency(
-                                        currentTransaction.amount,
-                                        true
-                                      )
-                                    ) +
+                                    _vm._s(currentTransaction.amountString) +
                                     "\n                      "
                                 )
                               ])
                             : _c("h4", { staticClass: "float-right" }, [
                                 _vm._v(
                                   "\n                        " +
-                                    _vm._s(
-                                      _vm.formatCurrency(
-                                        currentTransaction.amount,
-                                        true
-                                      )
-                                    ) +
+                                    _vm._s(currentTransaction.amountString) +
                                     "\n                      "
                                 )
                               ])
@@ -38382,7 +38456,30 @@ var render = function() {
         _c("div", { staticClass: "col-10 align-self-center" }, [
           _c("div", { staticClass: "container" }, [
             _c("div", { staticClass: "row pr-3" }, [
-              _vm._m(0),
+              _c("div", { staticClass: "col-9 align-self-center" }, [
+                _c("h3", { staticClass: "navbar-text align-self-center" }, [
+                  _vm._v("Your Balance")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "btn btn-primary border-0 navbar-button ml-3 pl-0",
+                    attrs: { type: "button" },
+                    on: { click: _vm.emitUpdate }
+                  },
+                  [
+                    _c("img", {
+                      staticClass: "mr-2",
+                      attrs: { src: "img/add.png", width: "10%" }
+                    }),
+                    _vm._v("\n                ADD ENTRY\n              ")
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(0)
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-3 align-self-center" }, [
                 _c("h5", { staticClass: "navbar-text-secondary float-right" }, [
@@ -38423,41 +38520,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-9 align-self-center" }, [
-      _c("h3", { staticClass: "navbar-text align-self-center" }, [
-        _vm._v("Your Balance")
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary border-0 navbar-button ml-3 pl-0",
-          attrs: { type: "button" }
-        },
-        [
-          _c("img", {
-            staticClass: "mr-2",
-            attrs: { src: "img/add.png", width: "10%" }
-          }),
-          _vm._v("\n                ADD ENTRY\n              ")
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary border-0 navbar-button ml-3 pl-0",
-          attrs: { type: "button" }
-        },
-        [
-          _c("img", {
-            staticClass: "mr-2",
-            attrs: { src: "img/import.png", width: "10%" }
-          }),
-          _vm._v("\n                IMPORT CSV\n              ")
-        ]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-primary border-0 navbar-button ml-3 pl-0",
+        attrs: { type: "button" }
+      },
+      [
+        _c("img", {
+          staticClass: "mr-2",
+          attrs: { src: "img/import.png", width: "10%" }
+        }),
+        _vm._v("\n                IMPORT CSV\n              ")
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -38485,14 +38561,16 @@ var render = function() {
     "div",
     [
       _c("transaction-navbar-component", {
-        attrs: { currentBalance: _vm.currentBalance }
+        attrs: { currentBalance: _vm.currentBalance },
+        on: { update: _vm.update }
       }),
       _vm._v(" "),
       _c("transaction-list-component", {
         attrs: {
           currentBalance: _vm.currentBalance,
           currentTransactions: _vm.currentTransactions
-        }
+        },
+        on: { update: _vm.update }
       })
     ],
     1

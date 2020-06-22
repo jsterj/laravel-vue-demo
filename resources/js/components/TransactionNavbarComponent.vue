@@ -9,7 +9,7 @@
             <div class="row pr-3">
               <div class="col-9 align-self-center">
                 <h3 class="navbar-text align-self-center">Your Balance</h3>
-                <button type="button" class="btn btn-primary border-0 navbar-button ml-3 pl-0">
+                <button @click="emitUpdate" type="button" class="btn btn-primary border-0 navbar-button ml-3 pl-0">
                   <img src="img/add.png" class="mr-2" width="10%" />
                   ADD ENTRY
                 </button>
@@ -44,7 +44,12 @@
       },
       mounted(){
         //
-      }
+      },
+      methods: {
+        emitUpdate: function () {
+          this.$emit('update');
+        },
+      },
     }
 </script>
 
