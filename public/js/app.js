@@ -2219,6 +2219,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     csrf: String,
@@ -2229,6 +2279,44 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     emitUpdate: function emitUpdate() {
       this.$emit('update');
+    },
+    //display the modal with the add entry form
+    showModal: function showModal() {
+      var element = this.$refs.modal;
+      $(element).modal('show');
+    },
+    //hide the modal with the add entry form
+    hideModal: function hideModal() {
+      var element = this.$refs.modal;
+      $(element).modal('hide');
+    },
+    //add a new transaction
+    addTransaction: function addTransaction(id) {
+      var _this = this;
+
+      this.hideModal();
+      var formTagRef = 'new-form-tag';
+      axios.post('/transactions/asyncstore', {
+        label: this.$refs[formTagRef].elements.labelInput.value,
+        date: this.$refs[formTagRef].elements.dateInput.value,
+        amount: this.$refs[formTagRef].elements.amountInput.value,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(function (response) {
+        var data = response.data;
+
+        if (data.status == 'created') {
+          console.log('added new transaction - id # ' + String(data.transaction));
+
+          _this.emitUpdate();
+        } else {
+          console.log('error adding new transaction');
+          console.log(data.error);
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   }
 });
@@ -38903,7 +38991,30 @@ var render = function() {
         _c("div", { staticClass: "col-10 align-self-center" }, [
           _c("div", { staticClass: "container" }, [
             _c("div", { staticClass: "row pr-3" }, [
-              _vm._m(0),
+              _c("div", { staticClass: "col-9 align-self-center" }, [
+                _c("h3", { staticClass: "navbar-text align-self-center" }, [
+                  _vm._v("Your Balance")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "btn btn-primary border-0 navbar-button ml-3 pl-0",
+                    attrs: { type: "button" },
+                    on: { click: _vm.showModal }
+                  },
+                  [
+                    _c("img", {
+                      staticClass: "mr-2",
+                      attrs: { src: "img/add.png", width: "10%" }
+                    }),
+                    _vm._v("\n                ADD ENTRY\n              ")
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(0)
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-3 align-self-center" }, [
                 _c("h5", { staticClass: "navbar-text-secondary float-right" }, [
@@ -38936,7 +39047,86 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "col" })
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        ref: "modal",
+        staticClass: "modal",
+        attrs: { tabindex: "-1", role: "dialog" }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "form",
+                  {
+                    ref: "new-form-tag",
+                    staticClass: "mt-3",
+                    attrs: {
+                      method: "POST",
+                      action: "/transactions/asyncstore"
+                    }
+                  },
+                  [
+                    _c("input", {
+                      attrs: { type: "hidden", name: "_token" },
+                      domProps: { value: _vm.csrf }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "mt-4" }, [
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "float-right mt-3 mb-3" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-lg btn-light mr-2",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.hideModal()
+                              }
+                            }
+                          },
+                          [_vm._v("Cancel")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-lg btn-primary",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.addTransaction()
+                              }
+                            }
+                          },
+                          [_vm._v("Save Entry")]
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -38944,40 +39134,72 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-9 align-self-center" }, [
-      _c("h3", { staticClass: "navbar-text align-self-center" }, [
-        _vm._v("Your Balance")
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-primary border-0 navbar-button ml-3 pl-0",
+        attrs: { type: "button", disabled: "" }
+      },
+      [
+        _c("img", {
+          staticClass: "mr-2",
+          attrs: { src: "img/import.png", width: "10%" }
+        }),
+        _vm._v("\n                IMPORT CSV\n              ")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Add Balance Entry")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "labelInput" } }, [_vm._v("LABEL")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", id: "labelInput", maxlength: "35" }
+          })
+        ])
       ]),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary border-0 navbar-button ml-3 pl-0",
-          attrs: { type: "button" }
-        },
-        [
-          _c("img", {
-            staticClass: "mr-2",
-            attrs: { src: "img/add.png", width: "10%" }
-          }),
-          _vm._v("\n                ADD ENTRY\n              ")
-        ]
-      ),
+      _c("div", { staticClass: "col" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "dateInput" } }, [_vm._v("DATE")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "date", id: "dateInput" }
+          })
+        ])
+      ]),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary border-0 navbar-button ml-3 pl-0",
-          attrs: { type: "button", disabled: "" }
-        },
-        [
-          _c("img", {
-            staticClass: "mr-2",
-            attrs: { src: "img/import.png", width: "10%" }
-          }),
-          _vm._v("\n                IMPORT CSV\n              ")
-        ]
-      )
+      _c("div", { staticClass: "col" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "amountInput" } }, [_vm._v("AMOUNT")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: {
+              type: "number",
+              id: "amountInput",
+              step: "0.01",
+              min: "-5000",
+              max: "5000"
+            }
+          })
+        ])
+      ])
     ])
   }
 ]
