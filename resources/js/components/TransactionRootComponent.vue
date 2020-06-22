@@ -27,7 +27,11 @@
       methods: {
         //call server for updated data
         update: function () {
-          axios.get('/transactions/getupdate')
+          axios.get('/transactions/getupdate', {
+              headers: {
+                  'Accept': 'application/json'
+              }
+          })
             .then(response => {
                  console.log(response.data);
             })

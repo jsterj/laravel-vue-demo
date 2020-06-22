@@ -2157,7 +2157,11 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     //call server for updated data
     update: function update() {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/transactions/getupdate').then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/transactions/getupdate', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(function (response) {
         console.log(response.data);
       })["catch"](function (error) {
         console.log(error);
