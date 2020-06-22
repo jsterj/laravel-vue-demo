@@ -1945,6 +1945,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     currentBalance: Number,
@@ -38382,6 +38405,64 @@ var render = function() {
             { staticClass: "p-0", attrs: { id: "transaction-list" } },
             _vm._l(_vm.formattedTransactions, function(currentTransaction) {
               return _c("li", [
+                currentTransaction.headerDate
+                  ? _c("div", { staticClass: "container" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c(
+                          "div",
+                          { staticClass: "col-9 align-self-center pl-0" },
+                          [
+                            _c("h5", { staticClass: "text-muted mt-5 mb-3" }, [
+                              _vm._v(_vm._s(currentTransaction.headerDate))
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-3 align-self-center" }, [
+                          Number(currentTransaction.headerTotal) > 0
+                            ? _c(
+                                "h4",
+                                {
+                                  staticClass: "float-right deposit pr-4 mt-4"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    " +
+                                      _vm._s(
+                                        _vm.formatCurrency(
+                                          Number(
+                                            currentTransaction.headerTotal
+                                          ),
+                                          true
+                                        )
+                                      ) +
+                                      "\n                  "
+                                  )
+                                ]
+                              )
+                            : _c(
+                                "h4",
+                                { staticClass: "float-right pr-4 mt-4" },
+                                [
+                                  _vm._v(
+                                    "\n                    " +
+                                      _vm._s(
+                                        _vm.formatCurrency(
+                                          Number(
+                                            currentTransaction.headerTotal
+                                          ),
+                                          true
+                                        )
+                                      ) +
+                                      "\n                  "
+                                  )
+                                ]
+                              )
+                        ])
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("div", { staticClass: "card mb-3" }, [
                   _c("div", { staticClass: "card-body" }, [
                     _c("div", { staticClass: "container" }, [
