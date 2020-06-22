@@ -55,7 +55,7 @@ class TransactionsController extends Controller
     private function getCurrentTransactions()
     {
         $user = Auth::user();
-        return $user->transactions()->select('label', 'date', 'amount')->orderBy('date', 'desc')->take(config('finance.transaction.numTransactionsToList'))->get();
+        return $user->transactions()->select('id', 'label', 'date', 'amount')->orderBy('date', 'desc')->take(config('finance.transaction.numTransactionsToList'))->get();
     }
 
     /**
@@ -121,6 +121,41 @@ class TransactionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        abort(404);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function asyncDestroy($id)
+    {
+      //get the transaction record
+      $transaction = Transaction::find($id);
+
+      //check that user owns this resource
+      if($transaction && $transaction->user_id != Auth::user()->id) {
+        return response()->json([
+            'status' => 'unauthorized',
+            'transaction' => $id,
+        ]);
+      }
+
+      //delete the record
+      if($transaction) {
+        $transaction->delete();
+        return response()->json([
+            'status' => 'deleted',
+            'transaction' => $id,
+        ]);
+      }
+
+      //record not found
+      return response()->json([
+          'status' => 'failed',
+          'transaction' => $id,
+      ]);
     }
 }
