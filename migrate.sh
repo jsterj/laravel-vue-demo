@@ -6,8 +6,10 @@ echo
 echo Migrating...
 echo
 php artisan migrate
-clear
+echo
 echo
 echo Seeding...
 echo
-echo No seeders setup yet.
+php artisan db:seed --class=DemoSeeder
+echo
+echo
