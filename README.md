@@ -24,7 +24,7 @@ If you have run the seeder then there is also a demo account with the following 
 > 
 > password:  password
 
-If you're running the Docker containers you should be able to access the site in your browser at [http://localhost](http://localhost).
+If you're running the Docker containers then you should be able to access the site in your browser at [http://localhost](http://localhost).
 
 If you would like to look at the database directly, you can do so via the phpMyAdmin container.  It is running at [http://localhost:8080](http://localhost:8080) and has the following credentials:
 
