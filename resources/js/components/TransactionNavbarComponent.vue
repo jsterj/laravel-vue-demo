@@ -8,18 +8,23 @@
           <div class="container">
             <div class="row pr-3">
               <div class="col-9 align-self-center">
-                <h3 class="navbar-text align-self-center">Your Balance</h3>
                 <button type="button" class="btn btn-primary border-0 navbar-button ml-3 pl-0" @click="showModal">
-                  <img src="img/add.png" class="mr-2" width="10%" />
+                  <svg class="ml-1 mr-1 bi bi-plus" width="2em" height="2em" viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
+                    <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
+                  </svg>
                   ADD ENTRY
                 </button>
                 <button type="button" class="btn btn-primary border-0 navbar-button ml-3 pl-0" disabled>
-                  <img src="img/import.png" class="mr-2" width="10%" />
+                  <svg class="ml-2 mr-1 bi bi-upload" width="2em" height="2em" viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8zM5 4.854a.5.5 0 0 0 .707 0L8 2.56l2.293 2.293A.5.5 0 1 0 11 4.146L8.354 1.5a.5.5 0 0 0-.708 0L5 4.146a.5.5 0 0 0 0 .708z"/>
+                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 2z"/>
+                  </svg>
                   IMPORT CSV
                 </button>
               </div>
               <div class="col-3 align-self-center">
-                <h5 class="navbar-text-secondary float-right">TOTAL BALANCE</h5>
+                <h5 class="navbar-text-secondary float-right">CURRENT BALANCE</h5>
                 <h4 v-if="currentBalance > 0" class="float-right positive-balance">
                   {{ formatCurrency(currentBalance, false) }}
                 </h4>
@@ -165,9 +170,9 @@
     background-color: #0054fe;
   }
   .positive-balance {
-    color: #00b357;
+    color: #37ae45;
   }
   .negative-balance {
-    color: white;
+    color: red;
   }
 </style>

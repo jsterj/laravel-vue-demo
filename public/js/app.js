@@ -2273,6 +2273,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     csrf: String,
@@ -6858,7 +6863,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.transaction-navbar {\n  background-color: #192b4e;\n  height: 150px;\n}\n.transaction-navbar-inner-div {\n  height: 100%;\n}\n.navbar-text {\n  color: white;\n}\n.navbar-text-secondary {\n  color: #a3aab8;\n}\n.navbar-button {\n  background-color: #0054fe;\n}\n.positive-balance {\n  color: #00b357;\n}\n.negative-balance {\n  color: white;\n}\n", ""]);
+exports.push([module.i, "\n.transaction-navbar {\n  background-color: #192b4e;\n  height: 150px;\n}\n.transaction-navbar-inner-div {\n  height: 100%;\n}\n.navbar-text {\n  color: white;\n}\n.navbar-text-secondary {\n  color: #a3aab8;\n}\n.navbar-button {\n  background-color: #0054fe;\n}\n.positive-balance {\n  color: #37ae45;\n}\n.negative-balance {\n  color: red;\n}\n", ""]);
 
 // exports
 
@@ -39010,10 +39015,6 @@ var render = function() {
           _c("div", { staticClass: "container" }, [
             _c("div", { staticClass: "row pr-3" }, [
               _c("div", { staticClass: "col-9 align-self-center" }, [
-                _c("h3", { staticClass: "navbar-text align-self-center" }, [
-                  _vm._v("Your Balance")
-                ]),
-                _vm._v(" "),
                 _c(
                   "button",
                   {
@@ -39023,20 +39024,86 @@ var render = function() {
                     on: { click: _vm.showModal }
                   },
                   [
-                    _c("img", {
-                      staticClass: "mr-2",
-                      attrs: { src: "img/add.png", width: "10%" }
-                    }),
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "ml-1 mr-1 bi bi-plus",
+                        attrs: {
+                          width: "2em",
+                          height: "2em",
+                          viewBox: "0 0 16 16",
+                          fill: "white",
+                          xmlns: "http://www.w3.org/2000/svg"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            "fill-rule": "evenodd",
+                            d:
+                              "M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("path", {
+                          attrs: {
+                            "fill-rule": "evenodd",
+                            d:
+                              "M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"
+                          }
+                        })
+                      ]
+                    ),
                     _vm._v("\n                ADD ENTRY\n              ")
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(0)
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "btn btn-primary border-0 navbar-button ml-3 pl-0",
+                    attrs: { type: "button", disabled: "" }
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "ml-2 mr-1 bi bi-upload",
+                        attrs: {
+                          width: "2em",
+                          height: "2em",
+                          viewBox: "0 0 16 16",
+                          fill: "white",
+                          xmlns: "http://www.w3.org/2000/svg"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            "fill-rule": "evenodd",
+                            d:
+                              "M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8zM5 4.854a.5.5 0 0 0 .707 0L8 2.56l2.293 2.293A.5.5 0 1 0 11 4.146L8.354 1.5a.5.5 0 0 0-.708 0L5 4.146a.5.5 0 0 0 0 .708z"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("path", {
+                          attrs: {
+                            "fill-rule": "evenodd",
+                            d:
+                              "M8 2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 2z"
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v("\n                IMPORT CSV\n              ")
+                  ]
+                )
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-3 align-self-center" }, [
                 _c("h5", { staticClass: "navbar-text-secondary float-right" }, [
-                  _vm._v("TOTAL BALANCE")
+                  _vm._v("CURRENT BALANCE")
                 ]),
                 _vm._v(" "),
                 _vm.currentBalance > 0
@@ -39081,7 +39148,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _vm._m(0),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -39100,7 +39167,7 @@ var render = function() {
                       domProps: { value: _vm.csrf }
                     }),
                     _vm._v(" "),
-                    _vm._m(2),
+                    _vm._m(1),
                     _vm._v(" "),
                     _c("div", { staticClass: "mt-4" }, [
                       _c("hr"),
@@ -39146,25 +39213,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "btn btn-primary border-0 navbar-button ml-3 pl-0",
-        attrs: { type: "button", disabled: "" }
-      },
-      [
-        _c("img", {
-          staticClass: "mr-2",
-          attrs: { src: "img/import.png", width: "10%" }
-        }),
-        _vm._v("\n                IMPORT CSV\n              ")
-      ]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
