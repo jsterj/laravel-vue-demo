@@ -17,8 +17,8 @@ class DemoSeeder extends Seeder
         //add the demo user
         $ts = Carbon::now();
         DB::table('users')->insert([
-            'name' => 'Molly Green',
-            'email' => 'molly@example.com',
+            'name' => 'Justin Green',
+            'email' => 'justin@example.com',
             'email_verified_at' => $ts,
             'password' => Hash::make('password'),
             'profile_image' => '2f26c108-5344-489b-a51a-271281c25489',
